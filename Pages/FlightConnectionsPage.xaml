@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:GitFlightApp.Models"
+             x:Class="GitFlightApp.Pages.FlightConnectionsPage"
+             Title="FlightConnectionsPage">
+    <ScrollView>
+        <VerticalStackLayout>
+            <Label 
+        Text="Available Flights"
+        VerticalOptions="Center" 
+        HorizontalOptions="Center" />
+
+            <CollectionView SelectionChanged="OnSelectionChanged" SelectionMode="Single"  ItemsSource="{x:Static models:GlobalData.FlightConnections}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Padding="10"
+                                Margin="5">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Airline}" FontAttributes="Bold"/>
+                                <Label Text="{Binding DepartuteCity}"/>
+                                <Label Text="{Binding ArrivalCity}"/>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
