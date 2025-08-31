@@ -8,6 +8,7 @@ namespace GitFlightApp
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(FlightConnectionDetailsPage), typeof(FlightConnectionDetailsPage));
+            Routing.RegisterRoute(nameof(AddNewFlightPage), typeof(AddNewFlightPage));
         }
     }
 }
