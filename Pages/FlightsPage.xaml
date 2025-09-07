@@ -19,7 +19,7 @@
                                 Margin="5">
                             <VerticalStackLayout>
                                 <Label Text="{Binding FlightNumber}" FontAttributes="Bold"/>
-                                <Label Text="{Binding DepartureDate, StringFormat='{0:dd/mm/yyyy}'}"/>
+                                <Label Text="{Binding DepartureDate, StringFormat='{0:dd/MM/yyyy}'}"/>
                                 <Label Text="{Binding Price, StringFormat='Price: {0:C}'}"/>
                             </VerticalStackLayout>
                         </Border>

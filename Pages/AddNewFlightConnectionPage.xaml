@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GitFlightApp.Pages.AddNewFlightConnectionPage"
+             Title="AddNewFlightConnectionPage">
+    <VerticalStackLayout Padding="20">
+        <Label 
+    Text="Add Flight"
+    FontSize="24"
+    HorizontalOptions="Center" />
+        
+        <Label Text="Connection ID" />
+        <Entry x:Name="connectionIDEntry" Placeholder="Enter Flight Connection ID Here" Text="{Binding ConnectionID}"/>
+
+        <Label Text="Airline" />
+        <Picker ItemsSource="{Binding Airlines}"
+                SelectedItem="{Binding Airline}" />
+
+
+        <Label Text="Origin City" />
+        <Picker ItemsSource="{Binding Cities}"
+                SelectedItem="{Binding SelectedOrigin}" />
+
+        <Label Text="Destination City" />
+        <Picker ItemsSource="{Binding Cities}"
+                SelectedItem="{Binding SelectedDestination}" />
+
+        <Button Text="Save" Command="{Binding AddNewFlightConnectionCommand}"/>
+        <Button Text="Cancel" Command="{Binding CancelNewFlightConnectionCommand}"/>
+    </VerticalStackLayout>
+</ContentPage>

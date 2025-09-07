@@ -8,11 +8,11 @@
         Text="Add Flight"
         FontSize="24"
         HorizontalOptions="Center" />
-        <Entry x:Name="flightNumberEntry" Placeholder="Enter Flight Number Here"/>
-        <Entry x:Name="departureDateEntry" Placeholder="Enter Flight Departure Date Here" Keyboard="Date"/>
-        <Entry x:Name="priceEntry" Placeholder="Enter Flight Price Here" Keyboard="Telephone"/>
+        <Entry x:Name="flightNumberEntry" Placeholder="Enter Flight Number Here" Text="{Binding FlightNumber}"/>
+        <DatePicker x:Name="departureDateEntry" Date="{Binding DepartureDate}"/>
+        <Entry x:Name="priceEntry" Placeholder="Enter Flight Price Here" Keyboard="Numeric" Text="{Binding Price}"/>
 
-        <Button Text="Save" Clicked="OnSave"/>
-        <Button Text="Cancel" Clicked="OnCancel"/>
+        <Button Text="Save" Command="{Binding AddNewFlightCommand}"/>
+        <Button Text="Cancel" Command="{Binding CancelNewFlightCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

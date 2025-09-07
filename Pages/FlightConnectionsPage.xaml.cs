@@ -13,6 +13,7 @@ public partial class FlightConnectionsPage : ContentPage
     {
 		if (e.CurrentSelection.FirstOrDefault() is not FlightConnection selectedConnection)
 			return;
+		
 
 		var navParams = new Dictionary<string, object>()
 		{
@@ -20,5 +21,12 @@ public partial class FlightConnectionsPage : ContentPage
         };
 
 		await Shell.Current.GoToAsync($"/{nameof(FlightConnectionDetailsPage)}", navParams);
+
+		((CollectionView)sender).SelectedItem = null;
+    }
+
+    private async void OnAddNewFlightConnectionClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new AddNewFlightConnectionPage(this));
     }
 }

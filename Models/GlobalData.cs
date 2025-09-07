@@ -32,7 +32,7 @@ namespace GitFlightApp.Models
         {
            Airline = "Lufthansa",
            ConnectionID = "LH001",
-           DepartuteCity = "Frankfurt",
+           DepartureCity = "Frankfurt",
            ArrivalCity = "New York", 
            Flights = [flights.FirstOrDefault()]
 
