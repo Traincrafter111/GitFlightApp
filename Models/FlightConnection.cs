@@ -9,11 +9,10 @@ namespace GitFlightApp.Models
 {
     public class FlightConnection
     {
+        public string FlightNumber { get; set; } = string.Empty;
         public string ConnectionID { get; set; } = string.Empty;
-        public string Airline { get; set; } = string.Empty;
-        public string DepartureCity { get; set; } = string.Empty;
-        public string ArrivalCity { get; set; } = string.Empty;
-        public ObservableCollection<Flight> Flights { get; set; } = [];
+        public Flight Flight { get; set; } = new ();
+        public Connection Connection { get; set; } = new ();
 
     }
 }

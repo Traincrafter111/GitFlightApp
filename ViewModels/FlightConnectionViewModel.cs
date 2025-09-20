@@ -79,9 +79,9 @@ namespace GitFlightApp.ViewModels
             var newFlightConnection = new FlightConnection
             {
                 ConnectionID = ConnectionID.Trim(),
-                Airline = Airline.Trim(),
-                DepartureCity = SelectedOrigin.Trim(),
-                ArrivalCity = SelectedDestination.Trim()
+                //Airline = Airline.Trim(),
+                //DepartureCity = SelectedOrigin.Trim(),
+                //ArrivalCity = SelectedDestination.Trim()
             };
 
             GlobalData.FlightConnections.Add(newFlightConnection);

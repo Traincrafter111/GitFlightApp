@@ -11,5 +11,6 @@ namespace GitFlightApp.Models
         public string FlightNumber { get; set; } = string.Empty;
         public DateTime DepartureDate { get; set; }
         public decimal Price { get; set; }
+        public ICollection<FlightConnection> FlightConnections { get; set; } = [];
     }
 }

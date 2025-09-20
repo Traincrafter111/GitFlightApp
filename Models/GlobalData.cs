@@ -30,11 +30,11 @@ namespace GitFlightApp.Models
 
         private static ObservableCollection<FlightConnection> flightConnections = [new FlightConnection()
         {
-           Airline = "Lufthansa",
+           //Airline = "Lufthansa",
            ConnectionID = "LH001",
-           DepartureCity = "Frankfurt",
-           ArrivalCity = "New York", 
-           Flights = [flights.FirstOrDefault()]
+           //DepartureCity = "Frankfurt",
+           //ArrivalCity = "New York", 
+           //Flights = [flights.FirstOrDefault()]
 
 
         }];

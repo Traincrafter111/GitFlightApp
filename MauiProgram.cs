@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using GitFlightApp.Helpers;
+using GitFlightApp.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace GitFlightApp
 {
@@ -18,8 +21,16 @@ namespace GitFlightApp
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+            var dbPath = FileAccessHelper.GetLocalFilePath("flights.db");
+            builder.Services.AddDbContext<DataContext>(options => options.UseSqlite($"Data Source={dbPath}"));
 
-            return builder.Build();
+            var app = builder.Build();
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<DataContext>();
+                db.Database.EnsureCreated();
+            }
+            return app;
         }
     }
 }

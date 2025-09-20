@@ -15,7 +15,7 @@ public partial class FlightConnectionDetailsPage : ContentPage
 
 			if (_selectedConnection != null)
 			{
-				connectionsCollectionView.ItemsSource = _selectedConnection.Flights;
+				//connectionsCollectionView.ItemsSource = _selectedConnection.Flights;
 			}
 		}
 	}
