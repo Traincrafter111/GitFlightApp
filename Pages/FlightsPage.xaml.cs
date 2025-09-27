@@ -1,11 +1,14 @@
+using GitFlightApp.ViewModels;
+
 namespace GitFlightApp.Pages;
 
 public partial class FlightsPage : ContentPage
 {
-	public FlightsPage()
+	public FlightsPage(FlightViewModel flightViewModel)
 	{
 		InitializeComponent();
-	}
+		BindingContext = flightViewModel;
+    }
 
     private async void OnAddNewFlightClicked(object sender, EventArgs e)
     {

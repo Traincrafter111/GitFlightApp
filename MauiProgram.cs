@@ -1,5 +1,7 @@
 ﻿using GitFlightApp.Helpers;
 using GitFlightApp.Models;
+using GitFlightApp.Repositories;
+using GitFlightApp.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -23,6 +25,9 @@ namespace GitFlightApp
 #endif
             var dbPath = FileAccessHelper.GetLocalFilePath("flights.db");
             builder.Services.AddDbContext<DataContext>(options => options.UseSqlite($"Data Source={dbPath}"));
+
+            builder.Services.AddSingleton<FlightRepository>();
+            builder.Services.AddSingleton<FlightViewModel>();
 
             var app = builder.Build();
             using (var scope = app.Services.CreateScope())

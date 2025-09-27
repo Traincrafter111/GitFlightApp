@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GitFlightApp.Models;
+using GitFlightApp.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -98,6 +100,11 @@ namespace GitFlightApp.ViewModels
 
     public partial class FlightViewModel : ObservableObject
     {
+        public FlightViewModel(FlightRepository flightRepository)
+        {
+            this.flightRepository = flightRepository;
+        }
+        public ObservableCollection<Flight> flights { get; set; } = [];
         [ObservableProperty]
         private string _flightNumber = string.Empty;
 
@@ -106,7 +113,7 @@ namespace GitFlightApp.ViewModels
 
         [ObservableProperty]
         private DateTime _departureDate = DateTime.Now;
-
+        private readonly FlightRepository flightRepository;
 
         [RelayCommand]
         public async Task AddNewFlight()
