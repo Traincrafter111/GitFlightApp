@@ -4,14 +4,31 @@ namespace GitFlightApp.Pages;
 
 public partial class FlightsPage : ContentPage
 {
-	public FlightsPage(FlightViewModel flightViewModel)
+    private readonly FlightViewModel flightViewModel;
+
+    public FlightsPage(FlightViewModel flightViewModel)
 	{
 		InitializeComponent();
 		BindingContext = flightViewModel;
+		this.flightViewModel = flightViewModel;
     }
+
+	protected async override void OnAppearing()
+	{
+		base.OnAppearing();
+		await flightViewModel.LoadFlightsAsync();
+	}
 
     private async void OnAddNewFlightClicked(object sender, EventArgs e)
     {
-		await Navigation.PushAsync(new AddNewFlightPage(this));
+		await Shell.Current.GoToAsync(nameof(AddNewFlightPage));
+    }
+
+    private async void OnFlightSelected(object sender, SelectionChangedEventArgs e)
+    {
+		if (flightViewModel.SelectedFlight != null)
+		{
+			await Shell.Current.GoToAsync($"/{nameof(FlightDetailsPage)}");
+        }
     }
 }

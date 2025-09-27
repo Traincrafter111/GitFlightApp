@@ -4,11 +4,9 @@ using GitFlightApp.ViewModels;
 
 public partial class AddNewFlightPage : ContentPage
 {
-	private readonly FlightsPage _flightsPage;
-	public AddNewFlightPage(FlightsPage flightsPage)
+	public AddNewFlightPage(FlightViewModel flightViewModel)
     {
         InitializeComponent();
-        _flightsPage = flightsPage;
-        BindingContext = new FlightViewModel();
+        BindingContext = flightViewModel;
     }
 }

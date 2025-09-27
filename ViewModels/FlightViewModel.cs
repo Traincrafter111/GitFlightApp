@@ -104,12 +104,25 @@ namespace GitFlightApp.ViewModels
         {
             this.flightRepository = flightRepository;
         }
-        public ObservableCollection<Flight> flights { get; set; } = [];
+        public ObservableCollection<Flight> Flights { get; set; } = [];
         [ObservableProperty]
         private string _flightNumber = string.Empty;
 
         [ObservableProperty]
         private string _price = string.Empty;
+
+        [ObservableProperty]
+        private Flight? _selectedFlight;
+
+        public async Task LoadFlightsAsync()
+        {
+            Flights.Clear();
+            var flightsFromDB = await flightRepository.GetAllFlightsAsync();
+            foreach (var flight in flightsFromDB)
+            {
+                Flights.Add(flight);
+            }
+        }
 
         [ObservableProperty]
         private DateTime _departureDate = DateTime.Now;
@@ -124,7 +137,7 @@ namespace GitFlightApp.ViewModels
                 return;
             }
 
-            if (GlobalData.Flights.FirstOrDefault(f => f.FlightNumber.Equals(FlightNumber)) != null)
+            if (await flightRepository.GetFlightByIdAsync(FlightNumber) != null)
             {
                 await Shell.Current.DisplayAlert("Error", "Flight with this number already exists.", "OK");
                 return;
@@ -137,7 +150,7 @@ namespace GitFlightApp.ViewModels
                 Price = decimal.Parse(Price)
             };
 
-            GlobalData.Flights.Add(newFlight);
+            await flightRepository.AddFlightAsync(newFlight);
 
             await Shell.Current.DisplayAlert("Success", "Flight added successfully.", "OK");
             await Shell.Current.GoToAsync("..");
@@ -147,6 +160,12 @@ namespace GitFlightApp.ViewModels
         public async Task CancelNewFlight()
         {
             await Shell.Current.GoToAsync("..");
+        }
+
+        [RelayCommand]
+        public async Task DeleteFlight()
+        {
+           await flightRepository.DeleteFlightAsync(SelectedFlight.FlightNumber);
         }
     }
 }

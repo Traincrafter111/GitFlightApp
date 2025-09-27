@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GitFlightApp.Pages.FlightDetailsPage"
+             Title="FlightDetailsPage">
+    <VerticalStackLayout Padding="20">
+        <Label 
+     Text="Add Flight"
+     FontSize="24"
+     HorizontalOptions="Center" />
+        <Entry x:Name="flightNumberEntry" Placeholder="Enter Flight Number Here" 
+               Text="{Binding SelectedFlight.FlightNumber}"/>
+        <DatePicker x:Name="departureDateEntry" Date="{Binding SelectedFlight.DepartureDate}"/>
+        <Entry x:Name="priceEntry" Placeholder="Enter Flight Price Here" 
+               Keyboard="Numeric" Text="{Binding SelectedFlight.Price}"/>
+
+        <!--<Button Text="Save" Command="{Binding AddNewFlightCommand}"/>
+        <Button Text="Cancel" Command="{Binding CancelNewFlightCommand}"/>-->
+    </VerticalStackLayout>
+</ContentPage>
