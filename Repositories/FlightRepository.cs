@@ -41,7 +41,15 @@ namespace GitFlightApp.Repositories
         /// <returns> The result of an operation</returns>
         public async Task UpdateFlightAsync(Flight flight)
         {
-            context.Flights.Update(flight);
+            var existingFlight = await context.Flights.FindAsync(flight.FlightNumber);
+            if (existingFlight == null)
+            {
+                throw new InvalidOperationException("Flight not found.");
+            }
+            existingFlight.DepartureDate = flight.DepartureDate;
+            existingFlight.Price = flight.Price;
+            existingFlight.FlightNumber = flight.FlightNumber;
+            context.Flights.Update(existingFlight);
             await context.SaveChangesAsync();
         }
         /// <summary>

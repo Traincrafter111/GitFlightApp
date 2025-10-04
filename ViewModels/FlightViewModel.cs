@@ -114,6 +114,9 @@ namespace GitFlightApp.ViewModels
         [ObservableProperty]
         private Flight? _selectedFlight;
 
+        [ObservableProperty]
+        private bool _isEnabled = false;
+
         public async Task LoadFlightsAsync()
         {
             Flights.Clear();
@@ -166,6 +169,24 @@ namespace GitFlightApp.ViewModels
         public async Task DeleteFlight()
         {
            await flightRepository.DeleteFlightAsync(SelectedFlight.FlightNumber);
+        }
+
+        [RelayCommand]
+        public async Task UpdateFlight()
+        {
+            if (SelectedFlight == null)
+            {
+                await Shell.Current.DisplayAlert("Error", "No flight selected.", "OK");
+                return;
+            }
+            if (SelectedFlight.Price <= 0)
+            {
+                await Shell.Current.DisplayAlert("Error", "Please fill in all fields.", "OK");
+                return;
+            }
+            await flightRepository.UpdateFlightAsync(SelectedFlight);
+            await Shell.Current.DisplayAlert("Success", "Flight updated successfully.", "OK");
+            IsEnabled = false;
         }
     }
 }
