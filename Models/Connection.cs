@@ -12,6 +12,8 @@ namespace GitFlightApp.Models
         public string Airline { get; set; } = string.Empty;
         public string DepartureCity { get; set; } = string.Empty;
         public string ArrivalCity { get; set; } = string.Empty;
+        public string CreatedByID { get; set; } = string.Empty;
+        public User CreatedBy { get; set; } = new();
         public ICollection<FlightConnection> FlightConnections { get; set; } = [];
     }
 }
