@@ -20,7 +20,8 @@
 
         <VerticalStackLayout x:Name="MainOptions" IsVisible="True">
             <Button Text="Edit" Clicked="onClickedEdit" />
-            <Button Text="Delete"/>
+            <Button Text="Delete Flight"
+                Command="{Binding DeleteFlightCommand}"/>/>
         </VerticalStackLayout>
         
 

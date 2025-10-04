@@ -168,7 +168,12 @@ namespace GitFlightApp.ViewModels
         [RelayCommand]
         public async Task DeleteFlight()
         {
-           await flightRepository.DeleteFlightAsync(SelectedFlight.FlightNumber);
+            bool answer = await Shell.Current.DisplayAlert("Confirm", "Are you sure you want to delete this flight?", "Yes", "No");
+            if (!answer) return;
+            await flightRepository.DeleteFlightAsync(SelectedFlight.FlightNumber);
+            await Shell.Current.DisplayAlert("Success", "Flight deleted successfully.", "OK");
+            await Shell.Current.GoToAsync("..");
+
         }
 
         [RelayCommand]
