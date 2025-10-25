@@ -52,6 +52,11 @@ namespace GitFlightApp.Models
             modelBuilder.Entity<User>().
                 Property(U => U.Username).IsRequired();
 
+            modelBuilder.Entity<Connection>().
+                HasOne(C => C.CreatedBy).
+                WithMany(U => U.Connections).
+                HasForeignKey(C => C.CreatedByID);
+
         }
 
     }
