@@ -18,6 +18,7 @@ namespace GitFlightApp.Models
         public DbSet<Connection> Connections { get; set; }
         public DbSet<FlightConnection> FlightConnections { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Plane> Planes { get; set; }    
 
         /// <summary>
         /// Override this method to configure the model
@@ -56,6 +57,9 @@ namespace GitFlightApp.Models
                 HasOne(C => C.CreatedBy).
                 WithMany(U => U.Connections).
                 HasForeignKey(C => C.CreatedByID);
+
+            modelBuilder.Entity<Plane>().
+                HasKey(P => P.Id);
 
         }
 

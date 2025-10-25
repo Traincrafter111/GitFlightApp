@@ -1,4 +1,5 @@
-﻿using GitFlightApp.Helpers;
+﻿using CommunityToolkit.Maui;
+using GitFlightApp.Helpers;
 using GitFlightApp.Models;
 using GitFlightApp.Repositories;
 using GitFlightApp.ViewModels;
@@ -14,6 +15,7 @@ namespace GitFlightApp
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit(options => { options.SetShouldEnableSnackbarOnWindows(true); })
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -28,6 +30,8 @@ namespace GitFlightApp
 
             builder.Services.AddSingleton<FlightRepository>();
             builder.Services.AddSingleton<FlightViewModel>();
+            builder.Services.AddSingleton<UserViewModel>();
+            builder.Services.AddSingleton<PlaneViewModel>();
 
             var app = builder.Build();
             using (var scope = app.Services.CreateScope())
