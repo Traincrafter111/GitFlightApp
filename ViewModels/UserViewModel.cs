@@ -4,8 +4,10 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GitFlightApp.Helpers;
 using GitFlightApp.Models;
+using GitFlightApp.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +16,7 @@ namespace GitFlightApp.ViewModels
 {
     public partial class UserViewModel : ObservableObject
     {
-        private readonly DataContext dataContext;
+        private readonly UserRepository userRepository;
         [ObservableProperty]
         private string userName;
         [ObservableProperty]
@@ -22,9 +24,12 @@ namespace GitFlightApp.ViewModels
         [ObservableProperty]
         private ImageSource? profileImageSource;
 
-        public UserViewModel(DataContext dataContext)
+        
+
+        public ObservableCollection<User> Users { get; } = new();
+        public UserViewModel(UserRepository userRepository)
         {
-            this.dataContext = dataContext;
+            this.userRepository = userRepository;
         }
 
         [RelayCommand]
@@ -37,9 +42,7 @@ namespace GitFlightApp.ViewModels
                {
                     ProfileImage = profileImage;
                     ProfileImageSource = ImageHelper.ToImageSource(ProfileImage);
-                    CancellationTokenSource cancellationToken = new();
-                    var toast = Toast.Make("Photo uploaded successfully!", ToastDuration.Short, 14);
-                    await toast.Show(cancellationToken.Token);
+                    await ToastHelper.ShowAsync("Photo uploaded successfully!");
                 }
             }
             catch (Exception ex)
@@ -61,11 +64,23 @@ namespace GitFlightApp.ViewModels
                 Username = UserName,
                 profileImage = ProfileImage
             };
-            await dataContext.Users.AddAsync(user);
-            await dataContext.SaveChangesAsync();
-            CancellationTokenSource cancellationToken = new();
-            var toast = Toast.Make("User saved successfully!", ToastDuration.Short, 14);
-            await toast.Show(cancellationToken.Token);
+
+            await userRepository.AddUserAsync(user);
+
+            await ToastHelper.ShowAsync("User saved successfully!");
+            await Shell.Current.GoToAsync("..");
         }
+
+        public async Task LoadUserAsync()
+        {
+            Users.Clear();
+            var usersFromDB = await userRepository.GetAllUsersAsync();
+            foreach (var user in usersFromDB)
+            {
+                Users.Add(user);
+            }
+        }
+
+
     }
 }

@@ -19,14 +19,14 @@
         Route="FlightConnectionsPage" />
 
     <ShellContent
-        Title="Add New User"
-        ContentTemplate="{DataTemplate pages:AddNewUserPage}"
-        Route="AddNewUserPage" />
+        Title="Users"
+        ContentTemplate="{DataTemplate pages:UsersPage}"
+        Route="UsersPage" />
 
     <ShellContent
-        Title="Add New Plane"
-        ContentTemplate="{DataTemplate pages:AddNewPlanePage}"
-        Route="AddNewPlanePage" />
+        Title="Planes"
+        ContentTemplate="{DataTemplate pages:PlanesPage}"
+        Route="PlanesPage" />
     
     
 </Shell>

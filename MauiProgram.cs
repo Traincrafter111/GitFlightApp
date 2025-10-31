@@ -23,14 +23,16 @@ namespace GitFlightApp
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
             var dbPath = FileAccessHelper.GetLocalFilePath("flights.db");
             builder.Services.AddDbContext<DataContext>(options => options.UseSqlite($"Data Source={dbPath}"));
 
             builder.Services.AddSingleton<FlightRepository>();
             builder.Services.AddSingleton<FlightViewModel>();
+            builder.Services.AddSingleton<UserRepository>();
             builder.Services.AddSingleton<UserViewModel>();
+            builder.Services.AddSingleton<PlaneRepository>();
             builder.Services.AddSingleton<PlaneViewModel>();
 
             var app = builder.Build();

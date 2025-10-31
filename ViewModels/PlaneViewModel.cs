@@ -1,11 +1,11 @@
-﻿using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Maui.Core;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GitFlightApp.Helpers;
 using GitFlightApp.Models;
+using GitFlightApp.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,11 +20,13 @@ namespace GitFlightApp.ViewModels
         private string manufacturer = string.Empty;
         [ObservableProperty]
         private string? imagePath;
-        private readonly DataContext dataContext;
+        private readonly PlaneRepository planeRepository;
 
-        public PlaneViewModel(DataContext dataContext)
+        public ObservableCollection<Plane> Planes { get; } = new();
+
+        public PlaneViewModel(PlaneRepository planeRepository)
         {
-            this.dataContext = dataContext;
+            this.planeRepository = planeRepository;
         }
 
         [RelayCommand]
@@ -40,7 +42,7 @@ namespace GitFlightApp.ViewModels
         [RelayCommand]
         public async Task SavePlaneAsync()
         {
-            if(string.IsNullOrWhiteSpace(Model) || string.IsNullOrWhiteSpace(Manufacturer))
+            if (string.IsNullOrWhiteSpace(Model) || string.IsNullOrWhiteSpace(Manufacturer))
             {
                 await Shell.Current.DisplayAlert("Error", "Model and Manufacturer cannot be empty.", "OK");
                 return;
@@ -51,11 +53,19 @@ namespace GitFlightApp.ViewModels
                 Manufacturer = Manufacturer,
                 ImagePath = ImagePath
             };
-            await dataContext.Planes.AddAsync(plane);
-            await dataContext.SaveChangesAsync();
-            CancellationTokenSource cancellationToken = new();
-            var toast = Toast.Make("User saved successfully!", ToastDuration.Short, 14);
-            await toast.Show(cancellationToken.Token);
+            await planeRepository.AddPlaneAsync(plane);
+            await ToastHelper.ShowAsync("Plane saved successfully!");
+            await Shell.Current.GoToAsync("..");
+        }
+
+        public async Task LoadPlaneAsync()
+        {
+            Planes.Clear();
+            var planesFromDB = await planeRepository.GetAllPlanesAsync();
+            foreach (var plane in planesFromDB)
+            {
+                Planes.Add(plane);
+            }
         }
     }
 }
